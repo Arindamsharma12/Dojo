@@ -1,8 +1,14 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useUser } from "../UserContext";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const { login } = useUser();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     rollnumber: "",
     password: "",
@@ -14,28 +20,47 @@ const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    // Validation
+
     if (!/^\d{13}$/.test(form.rollnumber)) {
       setError("Roll number must be exactly 13 digits.");
       return;
     }
+
     if (form.password.length < 5) {
       setError("Password must be at least 5 characters.");
       return;
     }
-    // Mock user data, replace with real API response
-    login({
-      fullName: "John Doe",
-      rollnumber: form.rollnumber,
-      avatar: null, // or a URL if you have one
-    });
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/users/login`,
+        {
+          rollno: form.rollnumber,
+          password: form.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      const userData = response.data?.data?.user;
+      login(userData); // Save user in context
+
+      toast.success("Login successful!");
+      navigate("/");
+
+    } catch (err) {
+      const message = err.response?.data?.message || "Login failed. Try again.";
+      toast.error(message);
+    }
   };
 
   return (
     <div className="container" style={{ maxWidth: 400, margin: "0 auto" }}>
+      <ToastContainer position="top-center" />
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group">

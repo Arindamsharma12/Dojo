@@ -30,21 +30,21 @@ const registerUser = asyncHandler(async (req,res)=>{
   // check for user creation
   // return res
 
-  const {fullName, email, username,password} = req.body
+  const {fullName, email, rollno,password} = req.body
   // console.log("email:",email);
   console.log(req.body);
   if(
-    [fullName,email,username,password].some((field)=>field?.trim() === "")
+    [fullName,email,rollno,password].some((field)=>field?.trim() === "")
   ){
     throw new ApiError(400,"All Fields are required");
   }
 
   const existedUser = await User.findOne({
-    $or: [{ username },{ email }]
+    $or: [{ rollno },{ email }]
   })
 
   if(existedUser){
-    throw new ApiError(409,"User with username or email already exists")
+    throw new ApiError(409,"User with rollno or email already exists")
   }
 
   // console.log(req.files);
@@ -72,7 +72,7 @@ const registerUser = asyncHandler(async (req,res)=>{
     coverImage:coverImage?.url || "",
     email,
     password,
-    username:username.toLowerCase()
+    rollno,
   })
   
   const createdUser = await User.findById(user._id).select(
@@ -96,13 +96,13 @@ const loginUser = asyncHandler(async (req,res)=>{
   // password check
   // access and refresh token
   // send cookie
-  const {username,email,password} = req.body
-  if(!username && !email){
-    throw new ApiError(400,"Username or email is required")
+  const {rollno,email,password} = req.body
+  if(!rollno && !email){
+    throw new ApiError(400,"Roll no or email is required")
   }
   const user = await User.findOne(
     {
-      $or:[{username},{email}]
+      $or:[{rollno},{email}]
     })
   if(!user){
     throw new ApiError(404,"User does not exist")
