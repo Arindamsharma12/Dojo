@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserContext";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { login } = useUser();
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -56,6 +58,14 @@ const Signup = () => {
           },
         }
       );
+
+      const user = response.data.data; // <-- get the user object
+
+      login({
+        fullName: user.fullName,
+        rollnumber: user.username, // rollnumber is stored as username
+        avatar: user.avatar,
+      });
 
       alert("Signup successful!");
       navigate('/')

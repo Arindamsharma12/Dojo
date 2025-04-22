@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useUser } from "../UserContext";
 
 const Login = () => {
+  const { login } = useUser();
   const [form, setForm] = useState({
     rollnumber: "",
     password: "",
@@ -24,7 +26,12 @@ const Login = () => {
       setError("Password must be at least 5 characters.");
       return;
     }
-    alert("Login submitted (UI only)");
+    // Mock user data, replace with real API response
+    login({
+      fullName: "John Doe",
+      rollnumber: form.rollnumber,
+      avatar: null, // or a URL if you have one
+    });
   };
 
   return (
