@@ -1,0 +1,311 @@
+:root {
+    --primary-color: #F44E3F;
+    --secondary-color: #F27B09;
+    --background-light: #ffffff;
+    --background-dark: #f5f5f5;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --danger-color: #F44336;
+    --easy-color: #4CAF50;
+    --medium-color: #FFC107;
+    --hard-color: #F44336;
+  }
+  
+  /* Base styles */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-primary);
+    background-color: var(--background-dark);
+  }
+  
+  .app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  /* Navbar styles */
+  .navbar {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .navbar-logo {
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #fff2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    object-fit: cover;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navbar-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+  
+  .navbar-link:hover {
+    opacity: 0.8;
+  }
+  
+  .navbar-auth {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-login, .btn-signup {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-login {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+  }
+  
+  .btn-signup {
+    background-color: white;
+    color: var(--primary-color);
+  }
+  
+  .btn-login:hover, .btn-signup:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  /* Button styles */
+  .btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  /* Difficulty badges */
+  .difficulty {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: white;
+  }
+  
+  .difficulty.easy {
+    background-color: var(--easy-color);
+  }
+  
+  .difficulty.medium {
+    background-color: var(--medium-color);
+  }
+  
+  .difficulty.hard {
+    background-color: var(--hard-color);
+  }
+  
+  /* Card styles */
+  .card {
+    background-color: var(--background-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Tab styles */
+  .tabs-header {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 16px;
+  }
+  
+  .tab-btn {
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+  }
+  
+  .tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
+  
+  .tab-btn:hover:not(.active) {
+    color: var(--text-primary);
+  }
+  
+  /* Editor styles */
+  .editor-container {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .editor-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .btn-run {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+  
+  .btn-submit {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  /* Test results */
+  .test-result {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border-left: 4px solid;
+  }
+  
+  .test-result.passed {
+    background-color: rgba(76, 175, 80, 0.1);
+    border-left-color: var(--success-color);
+  }
+  
+  .test-result.failed {
+    background-color: rgba(244, 67, 54, 0.1);
+    border-left-color: var(--danger-color);
+  }
+  
+  /* Leaderboard styles */
+  .leaderboard {
+    background-color: var(--background-light);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .leaderboard-header, .leaderboard-row {
+    display: grid;
+    grid-template-columns: 80px 3fr 1fr 1fr;
+    padding: 10px 0;
+    align-items: center;
+  }
+  
+  .leaderboard-header {
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .leaderboard-row {
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .leaderboard-row:last-child {
+    border-bottom: none;
+  }
+  
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user {
+    display: flex;
+    align-items: center;
+  }
+  
+  .rank {
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .navbar-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .navbar-links, .navbar-auth {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .main-content {
+      padding: 10px;
+    }
+  }
