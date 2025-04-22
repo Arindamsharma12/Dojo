@@ -430,7 +430,8 @@
   }
   
   .problems-list-header {
-    background-color: #f9f9f9;
+    background-color: var(--secondary-color);
+    color: var(--text-primary);
     font-weight: 600;
     border-bottom: 1px solid var(--border-color);
   }
