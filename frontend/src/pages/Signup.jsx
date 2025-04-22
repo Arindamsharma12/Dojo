@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
-    fullname: "",
+    fullName: "",
     email: "",
     password: "",
     rollnumber: "",
@@ -20,10 +23,11 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    // Validation
+
+    // Frontend validations
     if (!/^\d{13}$/.test(form.rollnumber)) {
       setError("Roll number must be exactly 13 digits.");
       return;
@@ -32,7 +36,34 @@ const Signup = () => {
       setError("Password must be at least 5 characters.");
       return;
     }
-    alert("Signup submitted (UI only)");
+
+    try {
+      const formData = new FormData();
+      formData.append("fullName", form.fullName);
+      formData.append("email", form.email);
+      formData.append("password", form.password);
+      formData.append("username", form.rollnumber); // roll number as username
+      if (form.avatar) {
+        formData.append("avatar", form.avatar);
+      }
+
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/register", // Change if your backend URL differs
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      alert("Signup successful!");
+      navigate('/')
+      console.log(response.data);
+    } catch (err) {
+      const message = err?.response?.data?.message || "Something went wrong";
+      setError(message);
+    }
   };
 
   return (
@@ -40,12 +71,12 @@ const Signup = () => {
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group">
-          <label htmlFor="fullname">Full Name</label>
+          <label htmlFor="fullName">Full Name</label>
           <input
             type="text"
-            id="fullname"
-            name="fullname"
-            value={form.fullname}
+            id="fullName"
+            name="fullName"
+            value={form.fullName}
             onChange={handleChange}
             required
           />
@@ -95,8 +126,14 @@ const Signup = () => {
             onChange={handleChange}
           />
         </div>
-        {error && <div style={{ color: "red", marginBottom: 10 }}>{error}</div>}
-        <button className="btn btn-primary" type="submit" style={{ width: "100%" }}>
+        {error && (
+          <div style={{ color: "red", marginBottom: 10 }}>{error}</div>
+        )}
+        <button
+          className="btn btn-primary"
+          type="submit"
+          style={{ width: "100%" }}
+        >
           Sign Up
         </button>
       </form>
