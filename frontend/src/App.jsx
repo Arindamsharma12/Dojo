@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import "./styles/main.css";
 import "./styles/theme.css";
+import Editor from "./components/Practice";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Problems />} />
             <Route path="/problems" element={<Problems />} />
+            <Route path="/practice" element={<Editor />} />
             <Route path="/problems/:id" element={<ProblemView />} />
             <Route path="/contests" element={<Contests />} />
             <Route path="/leaderboard" element={<Leaderboard />} />

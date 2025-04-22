@@ -21,10 +21,11 @@ app.use(cookieParser())
 
 //Routes Imports
 import userRouter from './routes/user.routes.js'
-
+import runCodeRoute from './routes/runCode.route.js'
 
 //routes declaration
 app.use("/api/v1/users",userRouter)
+app.use("/api",runCodeRoute);
 
 // http://localhost:8000/api/v1/users/register
 export { app }

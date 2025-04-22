@@ -1,5 +1,3 @@
-// backend/routes/runCodeRoute.js
-
 import express from "express";
 import axios from "axios";
 import asyncHandler from "express-async-handler";
@@ -11,22 +9,22 @@ const JUDGE0_API = "https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=
 
 const headers = {
   "content-type": "application/json",
-  "X-RapidAPI-Key": "8558b85810msh94f67d119921518p141003jsnebc167f5ffa1", // Replace with your own RapidAPI key
+  "X-RapidAPI-Key": "8558b85810msh94f67d119921518p141003jsnebc167f5ffa1", // Replace this
   "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
 };
-
-// Load the problem JSON (sync read, happens once at server start)
-const problem = JSON.parse(fs.readFileSync("./problems/problem1.json", "utf-8"));
 
 router.post(
   "/run-code",
   asyncHandler(async (req, res) => {
     const { source_code, language_id } = req.body;
-    const test_cases = problem.test_cases;
 
-    if (!source_code || !language_id || !Array.isArray(test_cases)) {
+    if (!source_code || !language_id) {
       return res.status(400).json({ message: "Missing required fields" });
     }
+
+    // Load test cases from problem1.json
+    const problem = JSON.parse(fs.readFileSync("./problems/problem1.json", "utf-8"));
+    const test_cases = problem.test_cases;
 
     const results = [];
 
@@ -40,16 +38,17 @@ router.post(
           { headers }
         );
 
-        const actual = response.data.stdout?.trim();
+        const actual = response.data.stdout?.trim() || "";
         const passed = actual === expected.trim();
 
         results.push({
           testCase: i + 1,
           input,
-          expected,
+          expected: expected.trim(),
           actual,
           status: passed ? "Passed" : "Failed",
         });
+
       } catch (error) {
         results.push({
           testCase: i + 1,

@@ -1,6 +1,6 @@
 {
   "title": "Square of a Number",
-  "language_id": 54,
+  "description": "Return the same input value.",
   "test_cases": [
     { "input": "2", "expected": "4\n" },
     { "input": "5", "expected": "25\n" },
